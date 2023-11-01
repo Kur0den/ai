@@ -35,7 +35,6 @@ import NotingModule from './modules/noting';
 import PollModule from './modules/poll';
 import ReminderModule from './modules/reminder';
 import AozoraModule from './modules/aozora';
-import JihouModule from './modules/jihou';
 import WhitedayModule from './modules/whiteday';
 
 console.log('   __    ____  _____  ___ ');
