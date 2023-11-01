@@ -34,7 +34,6 @@ import SleepReportModule from './modules/sleep-report';
 import NotingModule from './modules/noting';
 import PollModule from './modules/poll';
 import ReminderModule from './modules/reminder';
-import AozoraModule from './modules/aozora';
 import WhitedayModule from './modules/whiteday';
 
 console.log('   __    ____  _____  ___ ');
@@ -90,7 +89,6 @@ promiseRetry(retry => {
 		new NotingModule(),
 		new PollModule(),
 		new ReminderModule(),
-		new AozoraModule(),
 		new WhitedayModule(),
 	]);
 }).catch(e => {
