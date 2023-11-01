@@ -1,8 +1,8 @@
 import autobind from 'autobind-decorator';
 import Module from '@/module';
 import serifs from '@/serifs';
-import { genItem } from '@/vocabulary';
 import config from '@/config';
+import { genItem } from '@/vocabulary';
 
 export default class extends Module {
 	public readonly name = 'noting';
@@ -12,7 +12,7 @@ export default class extends Module {
 		if (config.notingEnabled === false) return {};
 
 		setInterval(() => {
-			if (Math.random() < 0.04) {
+			if (Math.random() < 0.1) {
 				this.post();
 			}
 		}, 1000 * 60 * 10);
@@ -22,23 +22,27 @@ export default class extends Module {
 
 	@autobind
 	private post() {
-		const notes = [
-			...serifs.noting.notes,
-			() => {
-				const item = genItem();
-				return serifs.noting.want(item);
-			},
-			() => {
-				const item = genItem();
-				return serifs.noting.see(item);
-			},
-			() => {
-				const item = genItem();
-				return serifs.noting.expire(item);
-			},
-		];
+        const season = this.getSeason();
+		    const notes = [
+					...serifs.noting.notes,
+					() => {
+						const item = genItem();
+						return serifs.noting.want(item);
+					},
+					() => {
+						const item = genItem();
+						return serifs.noting.see(item);
+					},
+					() => {
+						const item = genItem();
+						return serifs.noting.expire(item);
+					},
+				];
+        const seasonNotes = serifs.seasons[season];
 
-		const note = notes[Math.floor(Math.random() * notes.length)];
+        const allNotes = [...notes, ...seasonNotes];
+
+		const note = allNotes[Math.floor(Math.random() * allNotes.length)];
 
 		// TODO: 季節に応じたセリフ
 
@@ -46,4 +50,17 @@ export default class extends Module {
 			text: typeof note === 'function' ? note() : note
 		});
 	}
+
+    private getSeason(): string {
+        const month = new Date().getMonth() + 1;
+        if (month < 3 || month === 12) {
+            return `winter`;
+        } else if (month < 6) {
+            return `spring`;
+        } else if (month < 9) {
+            return `summer`;
+        } else {    
+            return `autumn`;
+        }
+    }
 }
