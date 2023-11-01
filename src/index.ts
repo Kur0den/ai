@@ -91,7 +91,6 @@ promiseRetry(retry => {
 		new PollModule(),
 		new ReminderModule(),
 		new AozoraModule(),
-		new JihouModule(),
 		new WhitedayModule(),
 	]);
 }).catch(e => {
