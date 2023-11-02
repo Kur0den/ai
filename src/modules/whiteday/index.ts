@@ -34,6 +34,9 @@ export default class extends Module {
 
 			const data = friend.getPerModulesData(this);
 
+			/**lastChocolatedをDateオブジェクトに変換 */
+			
+
 			if (data.lastChocolated == date) return;
 
 			data.lastChocolated = date;

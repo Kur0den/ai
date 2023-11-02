@@ -501,7 +501,14 @@ export default {
 /**ホワイトデー */
 	whiteday: {
 		okaeshiFromYou: name => name ? `${name}、バレンタインのお返し、待ってます♪` : 'バレンタインのお返し、待ってます♪',
-	}
+	},
+
+	/**Happy New Year! */
+	akeome:{
+		HappyNewYear: [
+			'あけましておめでとうございます！今年もよろしくお願いします♪',
+		],
+	},
 };
 
 export function getSerif(variant: string | string[]): string {
