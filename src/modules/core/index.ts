@@ -76,11 +76,6 @@ export default class extends Module {
         return true;
     }
 
-    if (!safeForInterpolate(name)) {
-        msg.reply(serifs.core.invalidName);
-        return true;
-    }
-
     const withSan = titles.some(t => name.endsWith(t));
 
     if (withSan) {
