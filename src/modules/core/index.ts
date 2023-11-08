@@ -69,7 +69,7 @@ export default class extends Module {
     let name = msg.text.match(/^(.+?)って呼んで/)![1];
 
     // メンション部分を除外
-    name = name.replace(/<@[a-zA-Z0-9_]+>/g, '');
+		name = name.replace(/<@[^>]+>/g, '');
 
     if (name.length > 50) {
         msg.reply(serifs.core.tooLong);
