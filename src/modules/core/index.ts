@@ -66,7 +66,7 @@ export default class extends Module {
 		if (!msg.text.includes('って呼んで')) return false;
 		if (msg.text.startsWith('って呼んで')) return false;
 
-		let name = msg.text.match(/^(.+?)って呼んで/)![1];
+		var name = msg.text.match(/^(.+?)って呼んで/)![1];
 
 		/**メンション部分を除外する */
 
