@@ -62,38 +62,40 @@ export default class extends Module {
 
 	@autobind
 	private setName(msg: Message): boolean  {
-		if (!msg.text) return false;
-		if (!msg.text.includes('って呼んで')) return false;
-		if (msg.text.startsWith('って呼んで')) return false;
+    if (!msg.text) return false;
+    if (!msg.text.includes('って呼んで')) return false;
+    if (msg.text.startsWith('って呼んで')) return false;
 
-		const name = msg.text.match(/^(.+?)って呼んで/)![1];
+    let name = msg.text.match(/^(.+?)って呼んで/)![1];
 
+    // メンション部分を除外
+    name = name.replace(/<@[a-zA-Z0-9_]+>/g, '');
 
-		if (name.length > 50) {
-			msg.reply(serifs.core.tooLong);
-			return true;
-		}
+    if (name.length > 50) {
+        msg.reply(serifs.core.tooLong);
+        return true;
+    }
 
-		if (!safeForInterpolate(name)) {
-			msg.reply(serifs.core.invalidName);
-			return true;
-		}
+    if (!safeForInterpolate(name)) {
+        msg.reply(serifs.core.invalidName);
+        return true;
+    }
 
-		const withSan = titles.some(t => name.endsWith(t));
+    const withSan = titles.some(t => name.endsWith(t));
 
-		if (withSan) {
-			msg.friend.updateName(name);
-			msg.reply(serifs.core.setNameOk(name));
-		} else {
-			msg.reply(serifs.core.san).then(reply => {
-				this.subscribeReply(msg.userId, reply.id, {
-					name: name
-				});
-			});
-		}
+    if (withSan) {
+        msg.friend.updateName(name);
+        msg.reply(serifs.core.setNameOk(name));
+    } else {
+        msg.reply(serifs.core.san).then(reply => {
+            this.subscribeReply(msg.userId, reply.id, {
+                name: name
+            });
+        });
+    }
 
-		return true;
-	}
+    return true;
+}
 
 	@autobind
 	private modules(msg: Message): boolean  {
